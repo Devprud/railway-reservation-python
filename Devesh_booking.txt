@@ -1,17 +1,9 @@
 
------ Booking on 2025-07-08 21:54:32 -----
+----- Booking on 2025-07-17 00:05:17 -----
 Username: Devesh
-Train: Train A
-Class: AC
+Train: 162
+Class: 100
 Passengers:
-  1. Devesh, Age: 16
-  2. Suharsha, Age: 12
-----------------------------------------
-
------ Booking on 2025-07-08 22:02:31 -----
-Username: Devesh
-Train: Train A
-Class: AC
-Passengers:
-  1. Devesh, Age: 16
+  1. Suharsha, Age: 11
+  2. Devesh, Age: 17
 ----------------------------------------

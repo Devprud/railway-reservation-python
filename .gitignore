@@ -1,5 +1,27 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+
+# SQLite database files
+*.db
+
+# Logs and text output
+*.log
+*.txt
+
+# Environment folders
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+env.bak/
+venv.bak/
+
+# VS Code config
 .vscode/
-*.xlsx
+
+# MacOS / Windows system files
+.DS_Store
+Thumbs.db

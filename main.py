@@ -8,7 +8,7 @@ def connect_db():
         host="localhost",
         user="root",
         password="prudhivi141008devesh*",
-        database="railway_db"
+        database="railway_db",
     )
 
 def greet():
@@ -114,8 +114,8 @@ def save_booking_to_file(username, passengers_list, selected_train, selected_cla
     with open(filename, "a") as file:
         file.write(f"\n----- Booking on {booking_time} -----\n")
         file.write(f"Username: {username}\n")
-        file.write(f"Train: {selected_train}\n")
-        file.write(f"Class: {selected_class}\n")
+        file.write(f"Train: {train_id}\n")
+        file.write(f"Class: {class_id}\n")
         file.write("Passengers:\n")
         for i, (name, age) in enumerate(passengers_list, start=1):
             file.write(f"  {i}. {name}, Age: {age}\n")

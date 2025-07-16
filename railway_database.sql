@@ -1,10 +1,10 @@
-CREATE DATABASE railway_db;
-USE railway_db;
+CREATE DATABASE railway_database;
+USE railway_database;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(50) NOT NULL
+    password VARCHAR(100) NOT NULL
 );
 CREATE TABLE trains (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,7 +34,7 @@ CREATE TABLE passengers (
 CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
-    passenger_name VARCHAR(50),
+    passenger_name VARCHAR(100),
     passenger_age INT,
     train VARCHAR(50),
     class VARCHAR(20),
