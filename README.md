@@ -5,7 +5,7 @@ The main files in this project are <code><b>app.py</b></code>, <code><b>index.ht
 
 
 The project sparked new interest in me to build beautiful ui with working backend which has some practical real life application. 
-My view with this project is to apply some of the really good options that the airline industry provides to its users into the railways. The main things I wanted to implment are :
+My view with this project is to apply some of the really good options that the airline industry provides to its users into the railways. The main things I wanted to implement are :
 1)  Giving the traveller an option to choose his seat as in Indian Railways currently a person is alloted a seat by the system and cannot be selected by the person. 
 2)  Somehow implementing a way to provide trains according to the persons needs, show the seat available from all places the trains have their stops.
 3)  Add a way to avail connecting trains from one place to another. 
