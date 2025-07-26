@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Railway Reservation System</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="icon" href="../static/icon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <h1>Railway Reservation System</h1>
+    </header>
+    <div class="main-container">
+        <div class="container_inside">
+            <div class="empty"></div>
+            <div class="formcontainer">
+
+                <form id="loginForm">
+                    <h2
+                        title="Continue to book your tickets by logging in with your existing account or create one to get started.">
+                        Login or Register</h2>
+                    <div class="accyn">
+                        <h3>Do you have an account?</h3>
+                        <button class="yes_acc acc_btn"
+                            title="In case you have an existing account then click this button.">Yes</button>
+                        <button class="no_acc acc_btn"
+                            title="In case you do not have an account, create one to continue booking.">No</button>
+                    </div>
+
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+
+                    <label for="password"
+                        title="Enter the password you want to set for your account. (Remember your password as it cannot be retrieved later if forgotten)">Password</label>
+                    <input type="password" id="password" required>
+
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+
+                <form id="bookingForm" style="display:none">
+                    <h2>Book a Ticket</h2>
+
+                    <label for="numPassengers" style="margin-top: 10px;">Number of Passengers</label>
+                    <div class="plusminus">
+                        <button type="button" onclick="buttonClickn()"><ion-icon
+                                name="remove-outline"></ion-icon></button>
+                        <input type="number" id="numPassengers" min="1" value="1" required />
+                        <button type="button" onclick="buttonClickp()"><ion-icon name="add-outline"></ion-icon></button>
+                    </div>
+
+                    <div id="passengerDetails"></div>
+
+                    <label for="train">Select Train</label>
+                    <select id="train"></select>
+
+                    <label for="class">Select Class</label>
+                    <select id="class"></select>
+
+                    <label for="payment">Payment Method</label>
+                    <select id="payment">
+                        <option value="credit">Credit Card</option>
+                        <option value="debit">Debit Card</option>
+                        <option value="net">Net Banking</option>
+                    </select>
+
+                    <button type="submit" class="submission">Confirm Booking</button>
+                </form>
+
+                <div id="menuOptions" style="display:none; text-align:center; margin-top:2em;">
+                    <button id="viewBookingsBtn" class="acc_btn">View Past Bookings</button>
+                    <button id="newBookingBtn" class="acc_btn">Make New Booking</button>
+                    <button id="deleteAccountBtn" class="acc_btn" style="color:red;">Delete Account</button>
+                </div>
+
+                <div id="output"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Ionicons CDN -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const bookingForm = document.getElementById("bookingForm");
+        const output = document.getElementById("output");
+        const numPassengersInput = document.getElementById("numPassengers");
+        const passengerDetails = document.getElementById("passengerDetails");
+
+        const trainSelect = document.getElementById("train");
+        const classSelect = document.getElementById("class");
+        const paymentSelect = document.getElementById("payment");
+
+        let loginAction = "yes";
+
+        // Login/Register buttons
+        document.querySelector(".yes_acc").addEventListener("click", function (e) {
+            e.preventDefault();
+            loginAction = "yes";
+            output.innerHTML = `<p>You chose to <strong>log in</strong>.</p>`;
+        });
+
+        document.querySelector(".no_acc").addEventListener("click", function (e) {
+            e.preventDefault();
+            loginAction = "no";
+            output.innerHTML = `<p>You chose to <strong>register</strong>.</p>`;
+        });
+
+        // Handle login or register
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            output.innerHTML = `<p><strong>${loginAction === "yes" ? "Logging in" : "Registering"}</strong> as ${username}...</p>`;
+
+            const apiUrl = loginAction === "yes" ? "/api/login" : "/api/register";
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        output.innerHTML = `<p style="color: green;">${data.message}</p>`;
+                        loginForm.style.display = "none";
+                        // bookingForm.style.display = "block"; // REMOVE THIS LINE
+                        document.getElementById("menuOptions").style.display = "block"; // SHOW MENU
+                        updatePassengerFields();  // initialize passenger fields
+                        window.loggedInUsername = username; // Save for later use
+                    } else {
+                        output.innerHTML = `<p style="color: red;">${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    output.innerHTML = `<p style="color: red;">Something went wrong. Please try again.</p>`;
+                });
+        });
+
+        // Add/Remove passenger fields
+        function buttonClickp() {
+            let val = parseInt(numPassengersInput.value);
+            numPassengersInput.value = val + 1;
+            updatePassengerFields();
+        }
+
+        function buttonClickn() {
+            let val = parseInt(numPassengersInput.value);
+            if (val > 1) {
+                numPassengersInput.value = val - 1;
+                updatePassengerFields();
+            }
+        }
+
+        function updatePassengerFields() {
+            const count = parseInt(numPassengersInput.value);
+            passengerDetails.innerHTML = "";
+            for (let i = 0; i < count; i++) {
+                passengerDetails.innerHTML += `
+                    <label>Passenger ${i + 1} Name</label>
+                    <input type="text" name="passengerName${i}" required>
+                    <label>Passenger ${i + 1} Age</label>
+                    <input type="number" name="passengerAge${i}" required>
+                `;
+            }
+        }
+
+        numPassengersInput.addEventListener("input", updatePassengerFields);
+
+        // Booking form submission
+        bookingForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const train = trainSelect.value;
+            const travelClass = classSelect.value;
+            const payment = paymentSelect.value;
+            const numPassengers = parseInt(numPassengersInput.value);
+
+            let passengers = [];
+            for (let i = 0; i < numPassengers; i++) {
+                const name = document.querySelector(`[name='passengerName${i}']`).value;
+                const age = document.querySelector(`[name='passengerAge${i}']`).value;
+                passengers.push({ name, age });
+            }
+
+            output.innerHTML = `
+                <p><strong>Booking confirmed!</strong></p>
+                <p>Train: ${train}, Class: ${travelClass}, Payment: ${payment}</p>
+                <p>Passengers:</p>
+                <ul>${passengers.map(p => `<li>${p.name}, Age: ${p.age}</li>`).join('')}</ul>
+            `;
+
+            // Send booking data to server
+            fetch("/api/book", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: window.loggedInUsername, // <--- this is important!
+                    train,
+                    travelClass,
+                    payment,
+                    passengers
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        output.innerHTML += `<p style="color: green;">${data.message}</p>`;
+                    } else {
+                        output.innerHTML += `<p style="color: red;">${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    output.innerHTML += `<p style="color: red;">Something went wrong with the booking. Please try again.</p>`;
+                });
+        });
+
+        // Populate dropdowns
+        trainSelect.innerHTML = `
+            <option>None</option>
+            <option>Intercity Express</option>
+            <option>Train A</option>
+            <option>Train B</option>
+            <option>Train C</option>
+            <option>Superfast Express</option>
+        `;
+
+        classSelect.innerHTML = `
+            <option>None</option>
+            <option>Sleeper</option>
+            <option>AC</option>
+            <option>General</option>
+        `;
+
+        // Show booking form
+        document.getElementById("newBookingBtn").onclick = function () {
+            document.getElementById("menuOptions").style.display = "none";
+            bookingForm.style.display = "block";
+            output.innerHTML = "";
+        };
+
+        // View past bookings
+        document.getElementById("viewBookingsBtn").onclick = function () {
+            fetch("/api/bookings?username=" + encodeURIComponent(window.loggedInUsername))
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.bookings.length === 0) {
+                            output.innerHTML = "<p>No past bookings found.</p>";
+                        } else {
+                            output.innerHTML = "<h3>Past Bookings</h3>" + data.bookings.map(b =>
+                                `<div style="border:1px solid #ccc; margin:1em; padding:1em;">
+                                    <b>Train:</b> ${b.train}<br>
+                                    <b>Class:</b> ${b.travel_class}<br>
+                                    <b>Payment:</b> ${b.payment}<br>
+                                    <b>Passengers:</b>
+                                    <ul>${b.passengers.map(p => `<li>${p.name}, Age: ${p.age}</li>`).join('')}</ul>
+                                </div>`
+                            ).join('');
+                        }
+                    } else {
+                        output.innerHTML = `<p style="color:red;">${data.message}</p>`;
+                    }
+                });
+            bookingForm.style.display = "none";
+            document.getElementById("menuOptions").style.display = "none";
+        };
+
+        // Delete account
+        document.getElementById("deleteAccountBtn").onclick = function () {
+            if (confirm("Are you sure you want to delete your account? This cannot be undone.")) {
+                fetch("/api/delete_account", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: window.loggedInUsername })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        output.innerHTML = `<p style="color:${data.success ? 'green' : 'red'};">${data.message}</p>`;
+                        if (data.success) {
+                            document.getElementById("menuOptions").style.display = "none";
+                            bookingForm.style.display = "none";
+                            loginForm.style.display = "block";
+                        }
+                    });
+            }
+        };
+
+        // Initialize
+        updatePassengerFields();
+    </script>
+</body>
+
+</html>

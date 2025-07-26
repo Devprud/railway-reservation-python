@@ -7,3 +7,12 @@ Passengers:
   1. Suharsha, Age: 11
   2. Devesh, Age: 17
 ----------------------------------------
+
+----- Booking on 2025-07-25 18:53:59 -----
+Username: Devesh
+Train: 2
+Class: 3
+Passengers:
+  1. Devesh, Age: 17
+  2. Suharsha, Age: 12
+----------------------------------------

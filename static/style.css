@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #ffe5b4;
+    font-family: 'Space Mono', monospace;
+}
+
+.main-container {
+    margin: 10px;
+    padding: 3em;
+}
+
+.container_inside {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    vertical-align: middle;
+}
+
+.container_inside h2 {
+    background-color: #f4f4f4;
+    border-left: 8px solid #4b92db;
+    border-bottom: 8px solid #4b92db;
+    border-top: 2px solid #4b92db;
+    border-right: 2px solid #4b92db;
+    margin: auto;
+    padding: 2em;
+}
+
+.container_inside .formcontainer {
+    margin-left: 30px;
+    background-color: #f4f4f4;
+    border-left: 8px solid #4b92db;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2px;
+    font-size: 2em;
+    padding: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 0px 20px 20px;
+    background-color: #4b92db;
+
+    color: #ffe5b4;
+    font-family: 'Space Mono', monospace;
+    font-weight: 500;
+    font-style: normal;
+}
+
+header:hover {
+    background-color: #ffe5b4;
+    color: rgb(75, 146, 219);
+    box-shadow: 0 0 10px rgba(75, 146, 219, 0.9);
+    transition: 1000ms;
+}
+
+h1, h2 {
+    text-align: center;
+    opacity: 100%;
+}
+h2:hover{
+    background-color: #ffe5b4;
+    transition: 250ms;
+    cursor: url('../static/train.png'), pointer;
+}
+h1:hover{
+    cursor: url('../static/train.png'), pointer;
+}
+form {
+    margin-bottom: 20px;
+}
+
+label, input {
+    display: block;
+    border-radius: 12px;
+    width: 50em;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.accyn h3 {
+    margin: 10px;
+}
+
+.acc_btn, .yes_acc, .no_acc, .formcontainer .submit {
+    width: max-content;
+    margin: 0;
+    border: none;
+    background-color: #4b92db;
+    color: #ffe5b4;
+    padding: 10px 20px;
+    border-radius: 0.05rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 1em 0;
+}
+
+.formcontainer .submit:hover, .yes_acc:hover, .no_acc:hover {
+    padding: 5px 16px;
+    background-color: #ffe5b4;
+    color: rgb(75, 146, 219);
+    border: 2px solid rgb(255, 229, 180);
+    border-bottom: 5px solid #4b92db;
+    border-left: 5px solid #4b92db;
+    border-right: 1px solid #4b92db;
+    border-top: 1px solid #4b92db;
+    transition: 250ms;
+    font-size: 1.35em;
+}
+
+input[type=text], input[type=password], #numPassengers, #bookingForm #passengerDetails input[type="number"], #train, #class, #payment {
+    border-radius: 50px;
+    padding: 1em;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+input[type=text]:focus, input[type=password]:focus, #train:focus, #class:focus, #payment:focus {
+    border-color: #4b92db;
+}
+
+#passengerDetails {
+    background-color: #ffe5b4;
+    padding: 1.75em;
+    margin: 0.75em;
+    border-radius: 0px 12px 12px 0px;
+    border-left: 5px solid #4b92db;
+}
+
+#passengerDetails input[type="text"] {
+    padding: 1em;
+    border-radius: 50px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    margin-top: 10px;
+}
+#passengerDetails input[type="text"]:hover, #passengerDetails input[type="number"]:hover {
+    background-color: #f4f4f4;
+}
+
+#bookingForm .plusminus {
+    display: flex;
+}
+
+.plusminus input[type="number"] {
+    width: 4.5em;
+    border-radius: 50px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    margin-top: 10px;
+    background-color: #f4f4f4;
+}
+
+.plusminus button {
+    color: #000;
+    border: none;
+    padding: 5px 7px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25em;
+    cursor: pointer;
+    margin: 1em 0em;
+    box-shadow: 1px 3px 10px rgba(177, 180, 184, 0.831);
+}
+.plusminus button:hover {
+    transition: 250ms;
+    box-shadow: 1px 3px 10px rgba(75, 146, 219, 0.831);
+}
+
+#bookingForm .submission {
+    background-color: #4b92db;
+    color: #ffe5b4;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0.05rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 1em 0;
+}
+
+#bookingForm .submission:hover {
+    padding: 5px 16px;
+    background-color: #ffe5b4;
+    color: rgb(75, 146, 219);
+    border: 2px solid rgb(255, 229, 180);
+    border-bottom: 5px solid #4b92db;
+    border-left: 5px solid #4b92db;
+    border-right: 1px solid #4b92db;
+    border-top: 1px solid #4b92db;
+    transition: 250ms;
+    font-size: 1.35em;
+}
