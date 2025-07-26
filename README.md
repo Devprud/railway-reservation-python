@@ -51,6 +51,6 @@ Sqlite - for this project it is used as an integrated database in the python cod
 <b>Password - </b> 1234
 
 <hr>
-This project has just begun, there is more coming to it and the UI is just the first iteration and will get more interesting and intiutive to use and accessible to all. And also more features are to be implemented which are quite ambitious for my scale and skill level but will definitely learn though the process just as i learnt a little of Flask, Sqlite Database and Javascript. Very excited for the future updates.
+This project has just begun, there is more coming to it and the UI is just the first iteration and will get more interesting and intuitive to use and accessible to all. And also more features are to be implemented which are quite ambitious for my scale and skill level but will definitely learn though the process just as i learnt a little of Flask, Sqlite Database and Javascript. Very excited for the future updates.
 
 <h2><i>Thank You for reading through. 😄</i></h2>
